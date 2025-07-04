@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Clínica Vet</title>
+  <link rel="stylesheet" href="/css/login.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Abel:wght@400&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400&display=swap" />
+
+</head>
+<body>
+  <main>
+    <h1>Bem-vindo à Clínica Veterinária!</h1>
+    <div class="form-container">
+      <form id="form-login" action="#" method="POST">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" placeholder="Digite seu email" required />
+
+        <label for="senha">Senha:</label>
+        <input type="password" id="senha" name="senha" placeholder="Digite sua senha" required />
+
+        <input type="submit" value="Entrar" />
+      </form>
+
+      <button type="button" id="btn-cadastro" onclick="mostrarFormulario()">Cadastrar Usuário</button>
+
+      <form id="form-cadastro" action="#" method="POST">
+        <button type="button" id="btn-fechar" onclick="fecharFormulario()">×</button>
+        <label for="nome">Nome:</label>
+        <input type="text" pattern="[A-Za-zÀ-ÿ\s]+" title="Apenas letras e espaços" id="nome" name="nome" placeholder="Digite seu nome" required />
+
+        <label for="telefone">Telefone:</label>
+        <input type="tel" inputmode="numeric" pattern="\d+" title="Digite apenas números" id="telefone" name="telefone" placeholder="Digite seu telefone" required />
+
+        <label for="email-cadastro">Email:</label>
+        <input type="email" id="email-cadastro" name="email" placeholder="Digite seu email" required />
+
+        <label for="senha-cadastro">Senha:</label>
+        <input type="password" id="senha-cadastro" name="senha" placeholder="Crie uma senha" required />
+
+        <button type="submit">Cadastrar</button>
+      </form>
+    </div>
+  </main>
+
+  <script>
+    function mostrarFormulario() {
+    const form = document.getElementById('form-cadastro');
+    form.style.display = 'flex'; // Garante que o layout esteja visível
+    setTimeout(() => {
+      form.classList.add('show');
+    }, 10); // Timeout pequeno para disparar a transição
+  }
+
+    function fecharFormulario() {
+    const form = document.getElementById('form-cadastro');
+    form.classList.remove('show');
+    setTimeout(() => {
+      form.style.display = 'none';
+    }, 400); // Espera a animação terminar
+  }
+
+    // Buscar tutores
+    /*fetch("http://localhost:8080/tutores")
+      .then(res => res.json())
+      .then(data => {
+        console.log("TUTORES:");
+        console.table(data);
+      })
+      .catch(err => console.error("Erro ao buscar tutores:", err));*/
+
+    //logar usuário
+    document.getElementById("form-login").addEventListener("submit", async function (e) {
+      e.preventDefault();
+
+      const emailLogin = document.getElementById("email").value;
+      const senhaLogin = document.getElementById("senha").value;
+
+      try {
+        const response = await fetch(`http://localhost:8080/tutores/${encodeURIComponent(emailLogin)}`);
+        const data = await response.json();
+
+        if (!response.ok) {
+          alert(data.error || "Tutor não encontrado");
+          return;
+        }
+      
+        console.log("Senha digitada:", senhaLogin);
+        console.log("Senha vinda do banco:", data[0].senha);
+        console.log(data);
+
+        if (data.length > 0 && data[0].senha.trim() === senhaLogin.trim()) {
+          alert("Login bem-sucedido!");
+          sessionStorage.setItem("emailTutorLogado", emailLogin);
+          sessionStorage.setItem("idTutorLogado", data[0].id_tutor);
+          window.location.href = "main.html";
+        } else {
+          alert("Senha incorreta.");
+        }
+
+        
+      } catch (error) {
+        alert("Erro ao tentar fazer login.");
+        console.error(error);
+      }
+    })
+
+    //cadastrar usuário
+    document.getElementById("form-cadastro").addEventListener("submit", async function (e) {
+    e.preventDefault(); 
+
+    const nome = document.getElementById("nome").value;
+    const telefone = document.getElementById("telefone").value;
+    const email = document.getElementById("email-cadastro").value;
+    const senha = document.getElementById("senha-cadastro").value;
+
+    const novoTutor = {
+      nome,
+      telefone,
+      email,
+      senha
+    };
+
+    try {
+      const response = await fetch("http://localhost:8080/tutores", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(novoTutor)
+      });
+
+
+      if (response.ok) {
+        alert("Tutor cadastrado com sucesso!");
+        document.getElementById("form-cadastro").reset();
+      } else {
+        const erro = await response.json();
+        alert("Erro ao cadastrar tutore: " + (erro.error || "Erro desconhecido"));
+      }
+    } catch (error) {
+      alert("Erro de rede ou servidor: " + error.message);
+    }
+  });
+  </script>
+</body>
+</html>

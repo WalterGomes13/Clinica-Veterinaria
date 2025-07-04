@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Clínica Veterinária - Serviços</title>
+  <link rel="stylesheet" href="../css/main.css" />
+</head>
+
+<body>
+  <header>
+    <select id="select-pet">
+      <option disabled selected>Pet</option>
+      <option value="ver">Ver meus pets</option>
+      <option value="cadastrar">Cadastrar novo pet</option>
+    </select>
+
+    <select id="select-consulta">
+      <option disabled selected>Consulta</option>
+      <option value="visualizar">Visualizar consultas</option>
+      <option value="agendar">Agendar consulta</option>
+      <option value="remarcar">Remarcar consulta</option>
+      <option value="cancelar">Cancelar consulta</option>
+    </select>
+
+    <select id="select-cirurgia">
+      <option disabled selected>Cirurgia</option>
+      <option value="visualizar">Visualizar cirurgias</option>
+      <option value="agendar">Agendar cirurgia</option>
+      <option value="remarcar">Remarcar cirurgia</option>
+      <option value="cancelar">Cancelar cirurgia</option>
+    </select>
+
+    <button class="menu-btn" id="produtos-btn" onclick="abrirModal('produtos-btn')">Produtos</button>
+    <button class="menu-btn" id="veterinario-btn">Veterinário</button>
+  </header>
+
+  <main>
+    <h1 id="titulo">Bem-vindo à Clínica Veterinária!</h1>
+    <p id="subtitulo">Escolha um serviço acima para continuar.</p>
+  </main>
+
+  <!-- Modal Ver Pets -->
+  <div class="modal" id="modal-ver-pets">
+    <div class="modal-content">
+      <span class="close" onclick="fecharModal('modal-ver-pets')">&times;</span>
+      <h2>Seus Pets</h2>
+      <div id="lista-pets" class="pets-container">
+        <!-- Lista dinâmica -->
+      </div>
+      <div class="modal" id="info-pet-modal">
+        <div class="modal-content" id="info-pet"></div>
+      </div>
+      <button id="btn-voltar" type="button" onclick="fecharModal('modal-ver-pets')">Voltar</button>
+    </div>
+  </div>
+
+  <!-- Modal Cadastro Pet -->
+  <div class="modal" id="modal-cadastro-pet">
+    <div class="modal-content">
+      <span class="close" onclick="fecharModal('modal-cadastro-pet')">&times;</span>
+      <h2>Cadastro de Pet</h2>
+      <form id="form-cadastro-pet">
+        <input type="text" pattern="[A-Za-zÀ-ÿ\s]+" title="Apenas letras e espaços" placeholder="Nome" id="nome" required>
+        <input type="text" pattern="[A-Za-zÀ-ÿ\s]+" title="Apenas letras e espaços" placeholder="Espécie" id="especie" required>
+        <input type="text" pattern="[A-Za-zÀ-ÿ\s]+" title="Apenas letras e espaços" placeholder="Raça" id="raca" required>
+        <input type="number" placeholder="Idade" id="idade" required>
+        <input type="number" placeholder="Peso (kg)" id="peso" required>
+        <select id="sexo" required>
+          <option value="" disabled selected hidden>Sexo</option>
+          <option value="M">M</option>
+          <option value="F">F</option>
+        </select>
+        <button type="button" onclick="fecharModal('modal-cadastro-pet')">Cancelar</button>
+        <button type="submit">Cadastrar</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal Ver Consultas -->
+  <div class="modal" id="modal-visualizar-consulta">
+    <div class="modal-content">
+      <span class="close" onclick="fecharModal('modal-visualizar-consulta')">&times;</span>
+      <h2>Suas Consultas</h2>
+      <ul id="lista-consulta" class="consultas-container">
+        <!-- Lista dinâmica -->
+      </ul>
+      <div class="modal" id="info-consulta-modal">
+        <div class="modal-content" id="info-consulta"></div>
+      </div>
+      <button id="btn-voltar-consulta" type="button" onclick="fecharModal('modal-visualizar-consulta')">Voltar</button>
+    </div>
+  </div>
+
+  <!-- Modal Agendar Consulta -->
+  <div class="modal" id="modal-agendar-consulta">
+    <div class="modal-content">
+      <span class="close" onclick="fecharModal('modal-agendar-consulta')">&times;</span>
+      <h2>Agendar Consulta</h2>
+      <div id="lista-consulta-para_agendar" class="consulta-agendamento-container">
+        <!-- Lista dinâmica -->
+      </div>
+      <div class="modal" id="info-consulta-agendar-modal">
+        <div class="modal-content" id="info-consulta-para-agendar"></div>
+      </div>
+      <button id="btn-voltar-agendamento-consulta" type="button" onclick="fecharModal('modal-agendar-consulta')">Voltar</button>
+    </div>
+  </div>
+
+  <!-- Modal Remarcar Consultas -->
+  <div class="modal" id="modal-remarcar-consulta">
+    <div class="modal-content">
+      <span class="close" onclick="fecharModal('modal-remarcar-consulta')">&times;</span>
+      <h2>Suas Consultas</h2>
+      <div id="lista-consulta-para_remarcar" class="consulta-remarcacao-container">
+        <!-- Lista dinâmica -->
+      </div>
+      <div class="modal" id="info-consulta-remarcar-modal">
+        <div class="modal-content" id="info-consulta-para-remarcar"></div>
+      </div>
+      <button id="btn-voltar-remarcacao" type="button" onclick="fecharModal('modal-remarcar-consulta')">Voltar</button>
+    </div>
+  </div>
+
+  <!-- Modal Cancelar Consultas -->
+  <div class="modal" id="modal-cancelar-consulta">
+    <div class="modal-content">
+      <span class="close" onclick="fecharModal('modal-cancelar-consulta')">&times;</span>
+      <h2>Suas Consultas</h2>
+      <ul id="lista-consulta-para-cancelar" class="lista-cirurgia-para-cancelar-conteiner">
+        <!-- Lista dinâmica -->
+      </ul>
+      <div class="modal" id="info-consulta-cancelar">
+        <div class="modal-content" id="info-consulta-para-cancelar"></div>
+      </div>
+      <button id="btn-voltar-cancelamento" type="button" onclick="fecharModal('modal-cancelar-consulta')">Voltar</button>
+    </div>
+  </div>
+
+  <!-- Modal Ver Cirurgias -->
+  <div class="modal" id="modal-visualizar-cirurgia">
+    <div class="modal-content">
+      <span class="close" onclick="fecharModal('modal-visualizar-cirurgia')">&times;</span>
+      <h2>Suas Cirurgias</h2>
+      <div id="lista-cirurgia" class="cirurgia-container">
+        <!-- Lista dinâmica -->
+      </div>
+      <div class="modal" id="info-cirurgia-modal">
+        <div class="modal-content" id="info-cirurgia"></div>
+      </div>
+      <button id="btn-voltar-cirurgia" type="button" onclick="fecharModal('modal-visualizar-cirurgia')">Voltar</button>
+    </div>
+  </div>
+
+  <!-- Modal Agendar Cirurgia -->
+  <div class="modal" id="modal-agendar-cirurgia">
+    <div class="modal-content">
+      <span class="close" onclick="fecharModal('modal-agendar-cirurgia')">&times;</span>
+      <h2>Agendar Cirurgia</h2>
+      <div id="lista-cirurgia-para_agendar" class="cirurgia-agendamento-container">
+        <!-- Lista dinâmica -->
+      </div>
+      <div class="modal" id="info-cirurgia-agendar-modal">
+        <div class="modal-content" id="info-cirurgia-para-agendar"></div>
+      </div>
+      <button id="btn-voltar-agendamento-cirurgia" type="button" onclick="fecharModal('modal-agendar-cirurgia')">Voltar</button>
+    </div>
+  </div>
+
+  <!-- Modal Remarcar Cirurgias -->
+  <div class="modal" id="modal-remarcar-cirurgia">
+    <div class="modal-content">
+      <span class="close" onclick="fecharModal('modal-remarcar-cirurgia')">&times;</span>
+      <h2>Suas Cirurgias</h2>
+      <div id="lista-cirurgia-para_remarcar" class="cirurgia-remarcar-container">
+        <!-- Lista dinâmica -->
+      </div>
+      <div class="modal" id="info-cirurgia-remarcar-modal">
+        <div class="modal-content" id="info-cirurgia-para-remarcar"></div>
+      </div>
+      <button id="btn-voltar-remarcacao-cirurgia" type="button" onclick="fecharModal('modal-remarcar-cirurgia')">Voltar</button>
+    </div>
+  </div>
+
+  <!-- Modal Cancelar Cirurgias -->
+  <div class="modal" id="modal-cancelar-cirurgia">
+    <div class="modal-content">
+      <span class="close" onclick="fecharModal('modal-cancelar-cirurgia')">&times;</span>
+      <h2>Suas Cirurgias</h2>
+      <div id="lista-cirurgia-para-cancelar" class="cirurgia-cancelar-conteiner">
+        <!-- Lista dinâmica -->
+      </div>
+      <div class="modal" id="info-cirurgia-cancelar">
+        <div class="modal-content" id="info-cirurgia-para-cancelar"></div>
+      </div>
+      <button id="btn-voltar-cancelamento-cirurgia" type="button" onclick="fecharModal('modal-cancelar-cirurgia')">Voltar</button>
+    </div>
+  </div>
+
+  <!-- Modal Produtos -->
+  <div class="modal" id="modal-produtos">
+    <div class="modal-content wide">
+      <span class="close" onclick="fecharModal('modal-produtos')">&times;</span>
+      <h2>Produtos</h2>
+      <div id="lista-produtos" class="produtos-container">
+        <!-- Cards de produtos serão inseridos aqui via JS -->
+      </div>
+      <button class="btn" id="btn-voltar-produtos" onclick="fecharModal('modal-produtos')">Voltar</button>
+    </div>
+  </div>
+
+  <!--Modal movimentação estoque-->
+  <div class="modal" id="modal-compra-venda">
+      <div class="modal-content">
+        <span class="close" onclick="fecharModal('modal-compra-venda')">&times;</span>
+        <h2>Realizar Compra/Venda</h2>
+        <form id="form-compra-venda">
+          <input type="number" placeholder="ID do Item" id="id_item" required>
+          <input type="number" placeholder="Quantidade" id="quantidade" required>
+          <input type="datetime-local" placeholder="Data e Hora" id="data_hora_movimentacao" required>
+
+          <button type="button" onclick="fecharModal('modal-compra-venda')">Cancelar</button>
+          <button type="submit">Registrar</button>
+        </form>
+      </div>
+  </div>
+
+  <!-- Modal Veterinarios -->
+  <div class="modal" id="modal-veterinarios">
+    <div class="modal-content wide">
+      <span class="close" onclick="fecharModal('modal-veterinarios')">&times;</span>
+      <h2>Veterinarios</h2>
+      <div id="lista-veterinarios" class="veterinarios-container">
+        <!-- Cards de veterinarios serão inseridos aqui via JS -->
+      </div>
+      <div class="modal" id="info-vet-modal">
+        <div class="modal-content" id="info-vet"></div>
+      </div>
+      <button class="btn" id="btn-voltar-veterinarios" onclick="fecharModal('modal-veterinarios')">Voltar</button>
+    </div>
+  </div>
+
+  <script src="/js/animal.js" defer></script>
+  <script src="/js/cirurgia.js" defer></script>
+  <script src="/js/consulta.js" defer></script>
+  <script src="/js/estoque.js" defer></script>
+  <script src="/js/geral.js" defer></script>
+  <script src="/js/tutor.js" defer></script>
+  <script src="/js/veterinario.js" defer></script>
+
+</body>
+
+</html>

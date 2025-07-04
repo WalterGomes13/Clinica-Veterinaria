@@ -1,0 +1,153 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f1f4f8;
+}
+
+header {
+  background-color: white;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+header .logo {
+  height: 50px;
+}
+
+select, .menu-btn ,.fake-select{
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background-color: #e0f2f1;
+  cursor: pointer;
+  min-width: 180px;
+}
+
+.menu-btn {
+  appearance: none;
+  text-align: left;
+}
+
+main {
+  padding: 50px 20px;
+  text-align: center;
+}
+
+main h1 {
+  color: #2e8b78;
+  font-size: 2.2em;
+  margin-bottom: 10px;
+}
+
+main p {
+  color: #555;
+  font-size: 1.2em;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 10;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+  background-color: #ffffff;
+  margin: 10% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  border-radius: 10px;
+  width: 50%;
+  text-align: center;
+}
+
+.modal-content input, #tipo_mov, #sexo, #id_veterinario_cirurgia, #id_veterinario_consulta {
+  display: block;
+  margin: 10px auto;
+  padding: 10px;
+  width: 80%;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.modal-content button {
+  padding: 10px 20px;
+  margin: 10px 10px 0 10px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  background-color: #26a69a;
+  color: white;
+  font-weight: bold;
+}
+
+.modal-content button:first-of-type {
+  background-color: #90a4ae;
+}
+
+.close {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+/* Modal para produtos */
+.modal-content.wide {
+  max-width: 900px;
+  padding: 30px;
+  text-align: center;
+}
+
+/* Container flexível para cards */
+.produtos-container, .veterinarios-container, .pets-container, .consultas-container, 
+.consulta-remarcacao-container,
+.lista-cirurgia-para-cancelar-conteiner, .cirurgia-cancelar-conteiner, .cirurgia-container, .cirurgia-remarcar-container,
+.consulta-agendamento-container, .cirurgia-agendamento-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+/* Card individual de produto */
+.produto-card, .pets-cirurgia-card, .pets-consulta-card, .cirurgia-cancelar-card,.cirurgia-remarcar-card , .veterinario-card, .pets-card, .consulta-card,.consulta-remarcacao-card, .consulta-cancelamento-card, .cirurgia-card {
+  background-color: #f8f8f8;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  width: 250px;
+  text-align: left;
+}
+
+/* Botões de compra e venda */
+.produto-botoes {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+}
+
+.produto-botoes .btn {
+  flex: 1;
+  margin: 0 5px;
+}
+
+#form-movimentacao{
+  display: none;
+}
+
+
